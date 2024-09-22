@@ -24,51 +24,43 @@ const Produkt: React.FC = () => {
     const [priceRange, setPriceRange] = useState<number>(100000);
     const [isChecked, setIsChecked] = useState<boolean>(true);
 
-    // Data-ni useEffect orqali yuklash
     useEffect(() => {
         setMalumod(data as Product[]);
     }, []);
 
-    // Filterlash funksiyasi
     const filterlash = () => {
         let filteredData = [...data] as Product[];
 
-        // Qidiruv bo'yicha filterlash
         if (searchTerm) {
             filteredData = filteredData.filter((item) =>
                 item.title.toLowerCase().includes(searchTerm.toLowerCase())
             );
         }
 
-        // Kategoriya bo'yicha filterlash
         if (selectedOption) {
             filteredData = filteredData.filter((item) =>
                 item.category === selectedOption
             );
         }
 
-        // Kompaniya bo'yicha filterlash
         if (sortOrder) {
             filteredData = filteredData.filter((item) =>
                 item.company.toLowerCase().includes(sortOrder.toLowerCase())
             );
         }
 
-        // Narx oralig'i bo'yicha filterlash
         if (priceRange) {
             filteredData = filteredData.filter((item) =>
                 parseFloat(item.price) <= priceRange
             );
         }
 
-        // Bepul yetkazib berish filteri
         if (isChecked) {
             filteredData = filteredData.filter((item) =>
                 item.shipping === isChecked
             );
         }
 
-        // Tartiblash bo'yicha
         if (cartby === "a-z") {
             filteredData = filteredData.sort((a, b) => a.title.localeCompare(b.title));
         } else if (cartby === "z-a") {
@@ -82,7 +74,6 @@ const Produkt: React.FC = () => {
         setMalumod(filteredData);
     };
 
-    // Formani tozalash funksiyasi
     const tozalash = () => {
         setMalumod(data as Product[]);
         setIsChecked(true);
@@ -93,7 +84,6 @@ const Produkt: React.FC = () => {
         setCartby("");
     };
 
-    // Birinchi harfni katta qilish funksiyasi
     const capitalizeFirstLetter = (str: string): string => {
         return str.charAt(0).toUpperCase() + str.slice(1);
     };
@@ -101,7 +91,6 @@ const Produkt: React.FC = () => {
     return (
         <div>
             <div>
-                {/* Filtr va qidiruv formasi */}
                 <form className='max-w-[1100px] mx-auto drop-shadow-md' action="">
                     <div className='div-1 mt-[90px] bg-base-200 rounded-md px-8 py-4 grid gap-x-4 gap-y-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center'>
                         <div>
@@ -202,7 +191,6 @@ const Produkt: React.FC = () => {
                     </div>
                 </form>
 
-                {/* Mahsulotlar ro'yxati */}
                 <div className='bg-base-200 my-7 py-3 rounded-[8px] flex justify-between max-w-[1100px] mx-auto drop-shadow-lg'>
                     <p className='text-[20px] font-[600] mx-[20px]'>{malumod.length} Products</p>
                 </div>
