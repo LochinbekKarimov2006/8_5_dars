@@ -1,3 +1,9 @@
+declare global {
+    interface Window {
+      $crisp: any[];
+      CRISP_WEBSITE_ID: string;
+    }
+  }
 import React, {  useEffect, useState } from 'react';
 
 import data from "./json/main.json";
@@ -87,7 +93,16 @@ const Produkt: React.FC = () => {
     const capitalizeFirstLetter = (str: string): string => {
         return str.charAt(0).toUpperCase() + str.slice(1);
     };
-
+      
+        useEffect(() => {
+          window.$crisp = [];
+          window.CRISP_WEBSITE_ID = "429c535a-81c8-4327-bff2-82cb8221f90a";
+      
+          const s = document.createElement("script");
+          s.src = "https://client.crisp.chat/l.js";
+          s.async = true;
+          document.head.appendChild(s);
+        }, []);
     return (
         <div>
             <div>
@@ -199,7 +214,7 @@ const Produkt: React.FC = () => {
                         <div key={e.id} className="mt-6  max-w-[250px] flex flex-col justify-between mx-[10px] rounded-[5px] drop-shadow-lg">
                             <div color="blue-gray" className="relative h-56">
                                 <img
-                                className='w-[100%] max-h-[200px] rounded-[7px] p-1 drop-shadow-lg'
+                                className='w-[245px] h-[200px] rounded-[100%]  p-1 pb-5 drop-shadow-lg'
                                     src={e.image}
                                     alt="card-image"
                                 />
@@ -209,14 +224,14 @@ const Produkt: React.FC = () => {
                                     <h2  className="text-[18px] p-2 drop-shadow-lg">
                                         {capitalizeFirstLetter(e.title)}
                                     </h2>
-                                    <p className='pl-2 text-[13px] drop-shadow-md'>
+                                    <p className='pl-2 text-[13px] drop-shadow-md tracking-widest'>
                                         {e.description}
                                     </p>
                                 </div>
                                 <div className="text-center">
                                     <p className='text-[#3b0cf7]'>${e.price}</p>
                                     <button
-                                        className='w-[94%] bg-[#1607ebe0] text-white m-2 rounded-[5px] drop-shadow-lg'
+                                        className='w-[94%] bg-[#1607eb7f] text-white m-2 rounded-tl-[50%] rounded-br-[50%] rounded-[5px] drop-shadow-lg hover:bg-[#1607eb] hover:text-[#0be0ef] transition hover:-translate-y-1'
                                     >
                                         Read More
                                     </button>
